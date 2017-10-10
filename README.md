@@ -1,6 +1,7 @@
 # log-verbose
 
 [![NPM version](https://img.shields.io/npm/v/log-verbose.svg)](https://www.npmjs.com/package/log-verbose)
+[![npm](https://img.shields.io/npm/dt/log-verbose.svg)](https://github.com/flaviolsousa/log-verbose)
 [![Build Status](https://travis-ci.org/flaviolsousa/log-verbose.svg?branch=master)](https://travis-ci.org/flaviolsousa/log-verbose)
 [![codecov](https://codecov.io/gh/flaviolsousa/log-verbose/branch/master/graph/badge.svg)](https://codecov.io/gh/flaviolsousa/log-verbose)
 [![dependencies Status](https://david-dm.org/flaviolsousa/log-verbose/status.svg)](https://david-dm.org/flaviolsousa/log-verbose)
