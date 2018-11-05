@@ -165,5 +165,31 @@ function argumentsToString(arguments) {
       }
     });
 
+
+    it.only('Log object', function (done) {
+      let c_log = console.log;
+      try {
+
+        let valueLog = {name: 'Flavio'};
+        console.log = function () {
+          c_log.apply(this, arguments);
+          assert.ok(arguments.length >= 1, 'Invalid length text');
+          let textLog = argumentsToString(arguments);
+          assert.ok(textLog.indexOf('MyObject') >= 0, "MyObject not found");
+          assert.ok(textLog.indexOf('subObject') >= 0, "subObject not found");
+          assert.ok(textLog.indexOf('true') >= 0, "true not found");
+          assert.ok(textLog.indexOf('tests/m-index.js') >= 0, 'FileName not found');
+          console.log = c_log;
+          done();
+        };
+        log({ verbose: true }, "MyObject:", valueLog, "| boolean:", true, "| array: ", ["test", 1, {subObject: "str"}]);
+
+      } catch (error) {
+        console.log = c_log;
+        assert.fail(error);
+      } finally {
+        console.log = c_log;
+      }
+    });
   });
 })();

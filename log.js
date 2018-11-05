@@ -1,15 +1,14 @@
-
 'use strict';
 
-const appRoot = require('app-root-path') + '';
+const appRoot = `${require('app-root-path')}`;
 
 function validFilters(options, text) {
   options.verboseFilters = options.verboseFilters || [];
   if (options.verboseFilters.length == 0) {
     return true;
   } else {
-    for (var i = 0; i < options.verboseFilters.length; i++) {
-      var filter = options.verboseFilters[i];
+    for (let i = 0; i < options.verboseFilters.length; i++) {
+      const filter = options.verboseFilters[i];
       if (typeof filter === 'string' && text.indexOf(filter) >= 0) {
         return true;
       } else if (filter instanceof RegExp && text.match(filter)) {
@@ -20,26 +19,48 @@ function validFilters(options, text) {
   return false;
 }
 
+function valueToString(v) {
+  let r = v;
+  if (typeof v === 'function') {
+    r = '' + v;
+  } else if (typeof v === 'object') {
+    try {
+      if (v instanceof Error) {
+        r = '\n' + (v.stack || v.stacktrace || '') + '\n';
+      } else {
+        r = JSON.stringify(v);
+      }
+    } catch (err) {
+      r = `ERROR: "${err.message}"`;
+    }
+  }
+  return r;
+}
+
 function log() {
-  if (arguments && arguments.length > 0) {
+  if (arguments && arguments.length > 1) {
     const options = arguments[0] || {};
     if (options.verbose === true) {
       try {
-        let logLine = options['log-line'] || 2;
-        let vStack2 = ((new Error().stack).split("at ")[logLine]).trim().replace(/.*\(/, '').replace(/\).*/, '');
+        const logIgnoreStackLines = options['ignoreStackLines'] || 0;
+        const logLine = (options['log-line'] || 2) + logIgnoreStackLines;
+        /* eslint-disable */
+        let vStack2 = ((new Error().stack).split("at ")[logLine]).trim().replace(/.*\(/, '').replace(/\).*/, ''); 
+        /* eslint-enable */
 
-        let exec = vStack2.replace(/\s.*/ig, "");
+        let exec = vStack2.replace(/\s.*/gi, '');
         exec = exec.substr(appRoot.length + 1);
         exec = exec.replace(/\\/g, '/');
 
-        let value = [exec, ':'];
-        for (var i = 1; i < arguments.length; i++) {
-          value.push(arguments[i]);
+        const value = [exec, ':'];
+        for (let i = 1; i < arguments.length; i++) {
+          let v = arguments[i];
+          v = valueToString(v);
+          value.push(v);
         }
-        exec += ': ' + value;
 
         if (options['log-print'] || validFilters(options, value.join(''))) {
-          console.log.apply(this, value);
+          console.log.apply(null, value);
         }
       } catch (error) {
         console.log(error);
@@ -49,14 +70,14 @@ function log() {
   }
 }
 
-log.print = function () {
-  let args = [];
+log.print = function() {
+  const args = [];
   args.push({
-    verbose: true,
+    'verbose': true,
     'log-print': true,
-    'log-line': 3
+    'log-line': 3,
   });
-  for (var i = 0; i < arguments.length; i++) {
+  for (let i = 0; i < arguments.length; i++) {
     args.push(arguments[i]);
   }
   log.apply(this, args);
