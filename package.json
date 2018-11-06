@@ -1,6 +1,6 @@
 {
   "name": "log-verbose",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Simple log (use console.log) to check if 'verbose' option have been entered",
   "main": "log.js",
   "scripts": {
