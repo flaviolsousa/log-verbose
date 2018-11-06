@@ -1,0 +1,29 @@
+{
+  "extends": ["prettier", "eslint:recommended", "google"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2016,
+    "sourceType": "module"
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "prefer-template": "off",
+    "linebreak-style": "off",
+    "require-jsdoc": "off",
+    "no-console": "off",
+    "prefer-rest-params": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 80,
+        "ignoreTrailingComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true
+      }
+    ]
+  }
+}
