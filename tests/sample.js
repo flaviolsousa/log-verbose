@@ -29,6 +29,9 @@ c('Sample-11', 'function to simplify the use.', 'Will indicate this line in the 
 
 log({verbose: true}, 'Sample-12', c);
 
-log({verbose: true}, 'Sample-13', new Error('Teste log error!'));
+log({verbose: true}, 'Sample-13', new Error('Test error log!'));
+
+
+// --------------------
 // node tests/sample
 

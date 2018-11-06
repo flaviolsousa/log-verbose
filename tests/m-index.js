@@ -183,7 +183,7 @@ function argumentsToString(ags) {
         cLog.apply(this, arguments);
         assert.ok(arguments.length >= 1, 'Invalid length text');
         const textLog = argumentsToString(arguments);
-        assert.ok(textLog.indexOf('Teste log error') >= 0, 'Error Description not found');
+        assert.ok(textLog.indexOf('Test error log') >= 0, 'Error Description not found');
         assert.ok(textLog.indexOf('log-verbose/tests/m-index.js:') >= 0, 'Stack error not found');
 
 
@@ -191,7 +191,7 @@ function argumentsToString(ags) {
         done();
       };
 
-      log({verbose: true}, new Error('Teste log error!'));
+      log({verbose: true}, new Error('Test error log!'));
     } catch (error) {
       console.log = cLog;
       assert.fail(error);

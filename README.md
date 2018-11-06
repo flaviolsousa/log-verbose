@@ -41,12 +41,12 @@ function c() {
 c('Sample-11', 'function to simplify the use.', 'Will indicate this line in the log!');
 
 log({verbose: true}, 'Sample-12', c);
-// node tests/sample
+
+log({verbose: true}, 'Sample-13', new Error('Test error log!'));
 
 ```
-
+Output:
 ```
-git\log-verbose> node ./tests/sample.js
 tests/sample.js:5:5 : Sample-1 Hello World!
 tests/sample.js:7:1 : Sample-2 Hello World!
 tests/sample.js:9:1 : Sample-3 Object: {"test":{"a":1,"b":true}}
@@ -56,4 +56,16 @@ tests/sample.js:28:1 : Sample-11 function to simplify the use. Will indicate thi
 tests/sample.js:30:1 : Sample-12 function c() {
   log({verbose: true, ignoreStackLines: 1}, ...arguments);
 }
+tests/sample.js:32:1 : Sample-13
+Error: Test error log!
+    at Object.<anonymous> (/home/mtzcpd262/Documents/git/log-verbose/tests/sample.js:32:35)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+    at Function.Module.runMain (module.js:693:10)
+    at startup (bootstrap_node.js:188:16)
+    at bootstrap_node.js:609:3
+
 ```
